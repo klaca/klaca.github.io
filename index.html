@@ -252,4 +252,316 @@
                     </p>
                     <div class="space-y-2">
                         <div class="accordion-item border border-slate-200 rounded-lg">
-                            <button class="accordion-header w-full text-left p-4 font-semibold bg-slate-50 hover:bg-slate-100 flex justify-between items
+                            <button class="accordion-header w-full text-left p-4 font-semibold bg-slate-50 hover:bg-slate-100 flex justify-between items-center">
+                                Dolní Řasnice
+                                <span class="transform transition-transform">▼</span>
+                            </button>
+                            <div class="accordion-content bg-white p-4 border-t border-slate-200">
+                                Lokalita Dolní Řasnice vykazuje největší variabilitu v druhovém složení, což naznačuje aktivní sukcesní procesy a dynamické změny v čase.
+                            </div>
+                        </div>
+                        <div class="accordion-item border border-slate-200 rounded-lg">
+                            <button class="accordion-header w-full text-left p-4 font-semibold bg-slate-50 hover:bg-slate-100 flex justify-between items-center">
+                                Václavice a Hrádek nad Nisou
+                                <span class="transform transition-transform">▼</span>
+                            </button>
+                            <div class="accordion-content bg-white p-4 border-t border-slate-200">
+                                Tyto dvě lokality vykazují podobné druhové složení, což může být způsobeno jejich geografickou blízkostí a podobnými ekologickými podmínkami.
+                            </div>
+                        </div>
+                        <div class="accordion-item border border-slate-200 rounded-lg">
+                            <button class="accordion-header w-full text-left p-4 font-semibold bg-slate-50 hover:bg-slate-100 flex justify-between items-center">
+                                Jeřmanice
+                                <span class="transform transition-transform">▼</span>
+                            </button>
+                            <div class="accordion-content bg-white p-4 border-t border-slate-200">
+                                Lokalita Jeřmanice se v NMDS analýze jeví jako odlišná, což je pravděpodobně způsobeno její menší rozlohou a vyšší sezónní nestabilitou tůní.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Závěry a Doporučení -->
+            <section id="zavery" class="tab-content">
+                <h2 class="text-2xl font-bold mb-4 text-slate-900">Závěry a Doporučení pro další výzkum</h2>
+                <p class="text-slate-700 leading-relaxed mb-6">
+                    Výzkum potvrdil pozitivní vliv retenčních tůní na biodiverzitu cévnatých rostlin. Pro optimální ekologický přínos je však klíčové zohlednit specifické faktory ovlivňující jejich vývoj a navrhnout vhodný management. Tato sekce shrnuje hlavní závěry a předkládá doporučení pro budoucí monitorování a správu.
+                </p>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold text-slate-900 mb-4">Odpovědi na klíčové otázky:</h3>
+                    <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-lg">
+                        <ul class="list-disc list-inside text-emerald-800 space-y-2">
+                            <li><strong>Mají retenční tůně pozitivní vliv na biodiverzitu cévnatých rostlin ve svém bezprostředním okolí?</strong> <br>
+                                Ano, mohou být efektivním nástrojem pro podporu biodiverzity.</li>
+                            <li><strong>Jaké faktory mají na vývoj těchto biotopů vliv?</strong> <br>
+                                Klíčovými faktory jsou velikost, hloubka, hydrologická stabilita a antropogenní vlivy.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-4">Doporučení:</h3>
+                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+                        <ul class="list-disc list-inside text-blue-800 space-y-2">
+                            <li>Je nezbytné v dlouhodobém monitoringu retenčních tůní obecně pokračovat pro lepší pochopení jejich dynamiky, identifikaci rizikových faktorů a optimalizaci managementu.</li>
+                            <li>Pro optimalizaci jejich ekologického přínosu je vhodné kombinovat různé typy tůní:
+                                <ul class="list-circle list-inside ml-4 mt-1 space-y-1">
+                                    <li>Hlubší tůně poskytují stabilnější prostředí pro široké spektrum rostlin.</li>
+                                    <li>Mělčí tůně podporují sukcesní dynamiku a mohou být domovem specializovaných druhů.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabs = document.querySelectorAll('button[data-tab]');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+            function showTab(tabId) {
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                tabs.forEach(tab => {
+                    tab.classList.remove('active');
+                });
+
+                document.getElementById(tabId).classList.add('active');
+                document.querySelector(`button[data-tab="${tabId}"]`).classList.add('active');
+            }
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    showTab(tabId);
+                });
+            });
+
+            // Initial tab display
+            showTab('uvod');
+
+            // Accordion logic
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const icon = this.querySelector('span');
+
+                    if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                        content.style.maxHeight = null;
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        // Close all other accordions
+                        accordionHeaders.forEach(otherHeader => {
+                            if (otherHeader !== header) {
+                                otherHeader.nextElementSibling.style.maxHeight = null;
+                                otherHeader.querySelector('span').style.transform = 'rotate(0deg)';
+                            }
+                        });
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+
+            // Data for Locality Table
+            const localitiesData = [
+                {
+                    name: 'Hrádek nad Nisou',
+                    age: '2022-2023',
+                    numPools: 3,
+                    poolSize: 'Velké tůně',
+                    poolDepth: 'Hluboké',
+                    hydrologicalStability: 'Vysoká - hluboké tůně, stabilní hladina, nízká závislost na srážkách',
+                    environmentalInfluence: 'Velká rozloha, stabilní podmínky, přítomnost ostrůvku'
+                },
+                {
+                    name: 'Václavice',
+                    age: '2020',
+                    numPools: 3,
+                    poolSize: 'Střední tůně',
+                    poolDepth: 'Různá (hlubší i mělčí)',
+                    hydrologicalStability: 'Střední - smíšená hloubka tůní, přítok udržuje vodní režim, částečná sezónní variabilita',
+                    environmentalInfluence: 'Pole, probíhající stavební úpravy, potenciální disturbance'
+                },
+                {
+                    name: 'Dolní Řasnice',
+                    age: '2021',
+                    numPools: 2,
+                    poolSize: 'Střední tůně',
+                    poolDepth: 'Mělké',
+                    hydrologicalStability: 'Nízká - mělčí tůně, ovlivněné pastvou a sezónními srážkami, riziko vysychání',
+                    environmentalInfluence: 'Louky, pastva hospodářských zvířat, zvýšený obsah živin'
+                },
+                {
+                    name: 'Jeřmanice',
+                    age: '2020',
+                    numPools: 2,
+                    poolSize: 'Malé tůně',
+                    poolDepth: 'Mělké',
+                    hydrologicalStability: 'Nízká - mělčí tůně s vysokou sezónní variabilitou, silná závislost na srážkách',
+                    environmentalInfluence: 'Blízkost zástavby, rekreační využití, vyšší ochranné nároky'
+                }
+            ];
+
+            const localityTableBody = document.getElementById('localityTableBody');
+            const localityDetail = document.getElementById('localityDetail');
+            const detailLocalityName = document.getElementById('detailLocalityName');
+            const detailVelikostTun = document.getElementById('detailVelikostTun');
+            const detailHloubkaTun = document.getElementById('detailHloubkaTun');
+            const detailStabilita = document.getElementById('detailStabilita');
+            const detailVlivOkolniKrajiny = document.getElementById('detailVlivOkolniKrajiny');
+
+            localitiesData.forEach(locality => {
+                const row = document.createElement('tr');
+                row.classList.add('hover:bg-slate-50', 'cursor-pointer');
+                row.innerHTML = `
+                    <td class="py-3 px-4">${locality.name}</td>
+                    <td class="py-3 px-4">${locality.age}</td>
+                    <td class="py-3 px-4">${locality.numPools}</td>
+                `;
+                row.addEventListener('click', () => {
+                    detailLocalityName.textContent = locality.name;
+                    detailVelikostTun.textContent = locality.poolSize;
+                    detailHloubkaTun.textContent = locality.poolDepth;
+                    detailStabilita.textContent = locality.hydrologicalStability;
+                    detailVlivOkolniKrajiny.textContent = locality.environmentalInfluence;
+                    localityDetail.classList.remove('hidden');
+
+                    // Scroll to detail section
+                    localityDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+                localityTableBody.appendChild(row);
+            });
+
+            // Chart Data
+            const biodiversityLabels = ['Hrádek nad Nisou', 'Václavice', 'Dolní Řasnice', 'Jeřmanice'];
+            const biodiversityDataValues = [52, 38, 34, 29];
+
+            const protectedSpeciesLabels = ['Jeřmanice', 'Hrádek nad Nisou', 'Dolní Řasnice', 'Václavice'];
+            const protectedSpeciesDataValues = [6.8, 5.7, 5.8, 2.6];
+
+            // Biodiversity Chart
+            const biodiversityCtx = document.getElementById('biodiversityChart');
+            new Chart(biodiversityCtx, {
+                type: 'bar',
+                data: {
+                    labels: biodiversityLabels,
+                    datasets: [{
+                        label: 'Počet druhů cévnatých rostlin',
+                        data: biodiversityDataValues,
+                        backgroundColor: [
+                            'rgb(59, 130, 246)', // blue-500
+                            'rgb(249, 115, 22)',  // orange-500
+                            'rgb(16, 185, 129)', // emerald-500
+                            'rgb(139, 92, 246)'  // violet-500
+                        ],
+                        borderColor: [
+                            'rgb(37, 99, 235)',
+                            'rgb(234, 88, 12)',
+                            'rgb(5, 150, 105)',
+                            'rgb(109, 40, 217)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.parsed.y;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Počet druhů'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Lokalita'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Protected Species Chart
+            const protectedSpeciesCtx = document.getElementById('protectedSpeciesChart');
+            new Chart(protectedSpeciesCtx, {
+                type: 'bar',
+                data: {
+                    labels: protectedSpeciesLabels,
+                    datasets: [{
+                        label: 'Procentuální výskyt chráněných rostlin (%)',
+                        data: protectedSpeciesDataValues,
+                        backgroundColor: [
+                            'rgb(249, 115, 22)', // Jeřmanice - orange-500
+                            'rgb(59, 130, 246)', // HNN - blue-500
+                            'rgb(16, 185, 129)', // DŘ - emerald-500
+                            'rgb(236, 72, 153)'  // Václavice - pink-500
+                        ],
+                        borderColor: [
+                            'rgb(234, 88, 12)',
+                            'rgb(37, 99, 235)',
+                            'rgb(5, 150, 105)',
+                            'rgb(219, 39, 119)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.parsed.y + '%';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Procenta (%)'
+                            },
+                            max: 10
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Lokalita'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
